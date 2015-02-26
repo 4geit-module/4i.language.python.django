@@ -1,0 +1,7 @@
+.template 0
+
+for projectnode.protocol_node as pn
+  define pn.binary = 'False'
+endfor
+
+.endtemplate

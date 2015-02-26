@@ -1,0 +1,9 @@
+.template 0
+
+echo projectnode.string()
+
+# new project.output as o
+#   define o.name = ""
+# endnew
+
+.endtemplate

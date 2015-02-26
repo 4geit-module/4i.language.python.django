@@ -1,0 +1,16 @@
+.template 0
+
+if !defined(projectnode.django_version)
+  define projectnode.django_version = '1.7'
+endif
+
+if !defined(projectnode.language)
+  define projectnode.language = 'en'
+endif
+
+new projectnode.require as r
+  r.name = 'django'
+  r.version = '$(project.django_version)'
+endnew
+
+.endtemplate

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<module name="4i.language.python.django" branch="master">
+  <module name="4i.language.python" required_branch="master"/>
+
+  <require name="docutils" version="0.12"/>
+  <!-- https://github.com/kelvinwong-ca/django-select-multiple-field -->
+  <require name="django-select-multiple-field" version="0.3.1"/>
+
+  <todo>integrate with swagger http://django-rest-swagger.readthedocs.org/en/latest/ (almost done)</todo>
+
+  <node name="project" pre_combine="project_pre_combine.gsl">
+    <attribute name="language" required="True"/>
+    <attribute name="python_version" required="True"/>
+    <attribute name="django_version" required="True"/>
+    <attribute name="admin_username" required="True"/>
+    <attribute name="admin_password" required="True"/>
+    <attribute name="admin_email" required="True"/>
+    <attribute name="host"/>
+    <attribute name="port"/>
+    <attribute name="secret_key"/>
+    <node name="language" number="*">
+      <attribute name="code" required="True"/>
+      <attribute name="name" required="True"/>
+    </node> <!-- !language -->
+    <node name="output" number="*" virtual="True" debug="True">
+      <output name="manage" post="manage__py.gsl"/>
+    </node>
+    <node name="dir" number="*" virtual="True" pre_check="mainapp_dir_pre_check.gsl" debug="True">
+      <node name="output" number="*" virtual="True" debug="True" pre="mainapp_output_pre.gsl">
+    	<output name="__init__"/>
+    	<output name="urls" post="mainapp/urls__py.gsl"/>
+    	<output name="wsgi" post="mainapp/wsgi__py.gsl"/>
+    	<output name="settings" post="mainapp/settings__py.gsl"/>
+      </node>
+    </node>
+  <!-- <node name="dir" virtual="True" pre="maindir_pre.gsl"/> -->
+    <node name="app" number="*" pre="app_pre.gsl">
+      <attribute name="name" required="True"/>
+      <attribute name="description"/>
+      <node name="model" number="*" pre="model_pre.gsl">
+	<attribute name="name" required="True"/>
+	<attribute name="description"/>
+	<attribute name="display"/>
+	<attribute name="plural"/>
+	<attribute name="annotate"/>
+	<attribute name="plural"/>
+	<attribute name="progressbar" type="boolean"/>
+	<node name="field" number="*">
+	  <attribute name="type" required="True"/>
+	  <attribute name="name"/>
+	  <attribute name="description"/>
+	  <attribute name="model"/>
+	  <attribute name="unique" type="boolean"/>
+	  <attribute name="searchable"/>
+	  <attribute name="ordering"/>
+	  <attribute name="default"/>
+	  <attribute name="truncate"/>
+	  <attribute name="nodata" type="boolean"/>
+	  <attribute name="list_display" type="boolean"/>
+	  <attribute name="list_filter" type="boolean"/>
+	  <attribute name="autonowadd" type="boolean"/>
+	  <attribute name="autonow" type="boolean"/>
+	  <node name="choice" number="*">
+	    <attribute name="key" required="True"/>
+	    <attribute name="value" required="True"/>
+	    <attribute name="description"/>
+	  </node> <!-- !choice -->
+	</node> <!-- !field -->
+      </node> <!-- !model -->
+    </node> <!-- !app -->
+  </node> <!-- !project -->
+</module>
