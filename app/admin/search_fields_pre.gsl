@@ -1,0 +1,13 @@
+.template 0
+
+for m.field as f where defined(f.searchable) & f.searchable <> "False"
+  new m.search_fields as sf
+    if f.searchable <> "True"
+      define sf.name = "$(f.name)__$(f.searchable:)"
+    else
+      define sf.name = f.name
+    endif
+  endnew
+endfor
+
+.endtemplate

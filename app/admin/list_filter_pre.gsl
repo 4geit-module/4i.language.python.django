@@ -1,0 +1,9 @@
+.template 0
+
+for m.field as f where (f.type = "choice" | f.type = "foreignkey" | f.type = "manytomany") & (!defined(list_filter) | (defined(f.list_filter) & f.list_filter <> "False"))
+  new m.list_filter as lf
+    define lf.name = f.name
+  endnew
+endfor
+
+.endtemplate

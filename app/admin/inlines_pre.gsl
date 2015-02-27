@@ -1,0 +1,9 @@
+.template 0
+
+for m.inline as i
+  new m.inlines as is
+    define is.name = "$(m.name:)$(i.name:)Inline"
+  endnew
+endfor
+
+.endtemplate

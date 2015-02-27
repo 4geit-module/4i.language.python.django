@@ -1,0 +1,11 @@
+.template 0
+
+new c.stmt as s
+  define s. = 'inlines = [ '
+  for m.inlines as is
+    s. += "'$(is.name)', "
+  endfor
+  s. += ']'
+endnew
+
+.endtemplate

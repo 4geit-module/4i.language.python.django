@@ -1,0 +1,21 @@
+.template 0
+
+for m.field as f where defined(f.ordering)
+  new m.ordering as o
+    if f.ordering <> "asc" & f.ordering <> "dsc"
+      define o.name = f.ordering
+    elsif f.ordering = "dsc"
+      define o.name = "-$(f.name)"
+    else
+      define o.name = f.name
+    endif
+  endnew
+endfor
+
+if defined(m.progressbar) & m.progressbar = "True"
+  new m.ordering as o
+    define o.name = '-progress'
+  endnew
+endif
+
+.endtemplate

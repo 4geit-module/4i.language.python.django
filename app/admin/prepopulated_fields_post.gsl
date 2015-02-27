@@ -1,0 +1,11 @@
+.template 0
+
+new c.stmt as s
+  define s. = 'prepopulated_fields = { '
+  for m.prepopulated_fields as pf
+    s. += "'$(pf.key)': ('$(pf.value)',), "
+  endfor
+  s. += '}'
+endnew
+
+.endtemplate

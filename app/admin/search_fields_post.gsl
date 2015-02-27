@@ -1,0 +1,11 @@
+.template 0
+
+new c.stmt as s
+  define s. = 'search_fields = ( '
+  for m.search_fields as sf
+    s. += "'$(sf.name)', "
+  endfor
+  s. += ')'
+endnew
+
+.endtemplate

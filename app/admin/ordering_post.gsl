@@ -1,0 +1,11 @@
+.template 0
+
+new c.stmt as s
+  define s. = 'ordering = ( '
+  for m.ordering as o
+    s. += "'$(o.name)', "
+  endfor
+  s. += ')'
+endnew
+
+.endtemplate

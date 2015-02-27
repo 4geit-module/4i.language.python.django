@@ -1,0 +1,10 @@
+.template 0
+
+for m.field as f where f.type = "slug" & defined(f.uses)
+  new m.prepopulated_fields as pf
+    define pf.key = f.name
+    define pf.value = f.uses
+  endnew
+endfor
+
+.endtemplate

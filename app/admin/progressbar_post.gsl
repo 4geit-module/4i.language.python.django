@@ -1,0 +1,33 @@
+.template 0
+
+if defined(m.progressbar) & m.progressbar = "True"
+  new c.def as d
+    define d.name = "progressbar"
+    new d.arg as a
+      define a.name = 'self'
+    endnew
+    new d.arg as a
+      define a.name = 'obj'
+    endnew
+    new d.stmt as s
+      define s. = "progress_text = obj.progress if obj.progress else 0"
+    endnew
+    new d.stmt as s
+      define s. = "progress = int(round(obj.progress/5)) if obj.progress else 0"
+    endnew
+    new d.stmt as s
+      define s. = "remain_progress = 20-progress"
+    endnew
+    new d.stmt as s
+      define s. = "return '[%s%s] %d%%' % (progress*'#', remain_progress*'=', progress_text)"
+    endnew
+  endnew
+  new c.stmt as s
+    define s. = 'progressbar.short_description = "progressbar"'
+  endnew
+  new c.stmt as s
+    define s. = 'progressbar.admin_order_field = "progress"'
+  endnew
+endif
+
+.endtemplate

@@ -1,0 +1,33 @@
+.template 0
+
+new c.def as d
+  define d.name = "save_related"
+  new d.arg as a
+    define a.name = 'self'
+  endnew
+  new d.arg as a
+    define a.name = 'request'
+  endnew
+  new d.arg as a
+    define a.name = 'form'
+  endnew
+  new d.arg as a
+    define a.name = 'formsets'
+  endnew
+  new d.arg as a
+    define a.name = 'chance'
+  endnew
+  new d.stmt as s
+    define s. = "qs = super($(m.name:)Admin, self).get_queryset(request)"
+  endnew
+  for m.column as cl where defined(cl.annotate) & cl.annotate = "True"
+    new d.stmt as s
+      define s. = "qs = qs.annotate($(cl.ref)=Count('$(cl.field_name)')).order_by('-$(cl.ref)')"
+    endnew
+  endfor
+  new d.stmt as s
+    define s. = "return qs"
+  endnew
+endnew
+
+.endtemplate

@@ -1,0 +1,11 @@
+.template 0
+
+new c.stmt as s
+  define s. = 'exclude = ( '
+  for m.exclude as e
+    s. += "'$(e.name)', "
+  endfor
+  s. += ')'
+endnew
+
+.endtemplate

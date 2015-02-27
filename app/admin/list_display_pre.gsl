@@ -1,0 +1,29 @@
+.template 0
+
+new m.list_display as ld
+  define ld.name = 'id'
+endnew
+
+for m.field as f where (!defined(f.list_display) | (defined(f.list_display) & f.list_display <> "False")) & f.type <> "manytomany"
+  new m.list_display as ld
+    if defined(f.truncate)
+      define ld.name = 'truncate_$(f.name)'
+    else
+      define ld.name = f.name
+    endif
+  endnew
+endfor
+
+for m.column as c
+  new m.list_display as ld
+    define ld.name = c.name
+  endnew
+endfor
+
+if defined(m.progressbar) & m.progressbar = "True"
+  new m.list_display as ld
+    define ld.name = 'progressbar'
+  endnew
+endif
+
+.endtemplate

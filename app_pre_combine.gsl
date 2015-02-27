@@ -1,0 +1,63 @@
+.template 0
+
+for projectnode.model as m
+  for m.field as f where !defined(f.name) & defined(f.model)
+    define f.name = f.model
+  endfor
+endfor
+
+new project.dir as d
+  define d.name = projectnode.name
+
+  new d.output as o
+    define o.name = '__init__'
+  endnew
+
+  new d.output as o
+    define o.name = 'admin'
+    gsl from 'app/admin__py.gsl'
+  endnew
+
+  new d.output as o
+    define o.name = 'forms'
+    gsl from 'app/forms__py.gsl'
+  endnew
+
+  new d.output as o
+    define o.name = 'models'
+    gsl from 'app/models__py.gsl'
+  endnew
+
+  new d.output as o
+    define o.name = 'tests'
+    gsl from 'app/tests__py.gsl'
+  endnew
+
+  new d.output as o
+    define o.name = 'urls'
+    gsl from 'app/urls__py.gsl'
+  endnew
+
+  new d.output as o
+    define o.name = 'views'
+    gsl from 'app/views__py.gsl'
+  endnew
+
+  new d.dir as d
+    define d.name = 'management'
+
+    new d.output as o
+      define o.name = '__init__'
+    endnew
+
+    new d.dir as d
+      define d.name = 'commands'
+      
+      new d.output as o
+        define o.name = '__init__'
+      endnew
+    endnew
+  endnew
+endnew
+
+.endtemplate

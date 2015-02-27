@@ -1,0 +1,9 @@
+.template 0
+
+for m.field as f where f.type = "manytomany"
+  new m.filter_horizontal as fh
+    define fh.name = f.name
+  endnew
+endfor
+
+.endtemplate

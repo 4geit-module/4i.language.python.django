@@ -1,0 +1,26 @@
+.template 0
+
+for m.column as cl
+  new c.def as d
+    define d.name = cl.name
+    new d.arg as a
+      define a.name = 'self'
+    endnew
+    new d.arg as a
+      define a.name = 'obj'
+    endnew
+    new d.stmt as s
+      define s. = "return obj.$(cl.ref:)"
+    endnew
+  endnew
+  new c.stmt as s
+    define s. = '$(cl.name).short_description = "$(cl.description?cl.name:)"'
+  endnew
+  if defined(cl.annotate) & cl.annotate = "True"
+    new c.stmt as s
+      define s. = '$(cl.name).admin_order_field = "$(cl.ref:)"'
+    endnew
+  endif
+endfor
+
+.endtemplate

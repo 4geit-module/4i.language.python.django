@@ -1,0 +1,11 @@
+.template 0
+
+new c.stmt as s
+  define s. = 'list_display = ( '
+  for m.list_display as ld
+    s. += "'$(ld.name)', "
+  endfor
+  s. += ')'
+endnew
+
+.endtemplate

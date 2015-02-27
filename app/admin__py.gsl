@@ -1,0 +1,40 @@
+.template 0
+
+for projectnode.model as m
+  gsl from "app/admin/exclude_pre.gsl"
+  gsl from "app/admin/list_display_pre.gsl"
+  gsl from "app/admin/list_filter_pre.gsl"
+  gsl from "app/admin/filter_horizontal_pre.gsl"
+  gsl from "app/admin/prepopulated_fields_pre.gsl"
+  gsl from "app/admin/search_fields_pre.gsl"
+  gsl from "app/admin/ordering_pre.gsl"
+  gsl from "app/admin/inlines_pre.gsl"
+  gsl from "app/admin/class_pre.gsl"
+endfor
+
+for projectnode.model as m
+  new o.class as c
+    define c.name = 'TotoAdmin'
+    define c.inherits = 'admin.ModelAdmin'
+
+    gsl from "app/admin/exclude_post.gsl"
+    gsl from "app/admin/list_display_post.gsl"
+    gsl from "app/admin/list_filter_post.gsl"
+    gsl from "app/admin/filter_horizontal_post.gsl"
+    gsl from "app/admin/prepopulated_fields_post.gsl"
+    gsl from "app/admin/search_fields_post.gsl"
+    gsl from "app/admin/ordering_post.gsl"
+    gsl from "app/admin/inlines_post.gsl"
+    gsl from "app/admin/class_post.gsl"
+    gsl from "app/admin/truncate_post.gsl"
+    gsl from "app/admin/column_post.gsl"
+    gsl from "app/admin/progressbar_post.gsl"
+    gsl from "app/admin/get_queryset_post.gsl"
+  endnew
+
+  new o.stmt as s
+    define s. = "admin.site.register(models.$(m.name:), $(m.name:)Admin)"
+  endnew
+endfor
+
+.endtemplate

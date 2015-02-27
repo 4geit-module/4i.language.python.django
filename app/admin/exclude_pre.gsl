@@ -1,0 +1,9 @@
+.template 0
+
+if defined(m.progressbar) & m.progressbar = "True"
+  new m.exclude as e
+    define e.name = 'progress'
+  endnew
+endif
+
+.endtemplate

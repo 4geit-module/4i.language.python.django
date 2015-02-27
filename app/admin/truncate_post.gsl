@@ -1,0 +1,21 @@
+.template 0
+
+for m.field as f where defined(f.truncate)
+  new c.def as d
+    define d.name = 'truncate_$(f.name)'
+    new d.arg as a
+      define a.name = 'self'
+    endnew
+    new d.arg as a
+      define a.name = 'obj'
+    endnew
+    new d.stmt as s
+      define s. = "return '%s...' % obj.$(f.name)[:$(f.truncate)]"
+    endnew
+  endnew
+  new c.stmt as s
+    define s. = 'truncate_$(f.name).short_description = "$(f.name)"'
+  endnew
+endfor
+
+.endtemplate
