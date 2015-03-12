@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<module name="4i.language.python.django" branch="master">
+<module name="4i.language.python.django" branch="master" description="Primitive 4i module to generate Django project">
   <module name="4i.language.python" required_branch="master"/>
 
   <require name="docutils" version="0.12"/>
