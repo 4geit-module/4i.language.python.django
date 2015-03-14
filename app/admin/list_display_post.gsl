@@ -17,12 +17,14 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-new c.stmt as s
-  define s. = 'list_display = ( '
-  for m.list_display as ld
-    s. += "'$(ld.name)', "
-  endfor
-  s. += ')'
-endnew
+if defined(m->list_display)
+  new c.stmt as s
+    define s. = 'list_display = ( '
+    for m.list_display as ld
+      s. += "'$(ld.name)', "
+    endfor
+    s. += ')'
+  endnew
+endif
 
 .endtemplate

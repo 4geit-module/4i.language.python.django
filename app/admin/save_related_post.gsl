@@ -35,15 +35,13 @@ new c.def as d
     define a.name = 'chance'
   endnew
   new d.stmt as s
-    define s. = "qs = super($(m.name:)Admin, self).get_queryset(request)"
+    define s. = "super($(m.name:)Admin, self).save_related(request, form, formsets, change)"
   endnew
-  for m.column as cl where defined(cl.annotate) & cl.annotate = "True"
-    new d.stmt as s
-      define s. = "qs = qs.annotate($(cl.ref)=Count('$(cl.field_name)')).order_by('-$(cl.ref)')"
-    endnew
-  endfor
   new d.stmt as s
-    define s. = "return qs"
+    define s. = "obj = form.instance"
+  endnew
+  new d.stmt as s
+    define s. = "obj.save()"
   endnew
 endnew
 

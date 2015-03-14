@@ -17,12 +17,14 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-new c.stmt as s
-  define s. = 'prepopulated_fields = { '
-  for m.prepopulated_fields as pf
-    s. += "'$(pf.key)': ('$(pf.value)',), "
-  endfor
-  s. += '}'
-endnew
+if defined(m->prepopulated_fields)
+  new c.stmt as s
+    define s. = 'prepopulated_fields = { '
+    for m.prepopulated_fields as pf
+      s. += "'$(pf.key)': ('$(pf.value)',), "
+    endfor
+    s. += '}'
+  endnew
+endif
 
 .endtemplate

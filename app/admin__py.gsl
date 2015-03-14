@@ -31,7 +31,7 @@ endfor
 
 for projectnode.model as m
   new o.class as c
-    define c.name = 'TotoAdmin'
+    define c.name = '$(m.name:)Admin'
     define c.inherits = 'admin.ModelAdmin'
 
     gsl from "app/admin/exclude_post.gsl"
@@ -47,6 +47,7 @@ for projectnode.model as m
     gsl from "app/admin/column_post.gsl"
     gsl from "app/admin/progressbar_post.gsl"
     gsl from "app/admin/get_queryset_post.gsl"
+    gsl from "app/admin/save_related_post.gsl"
   endnew
 
   new o.stmt as s

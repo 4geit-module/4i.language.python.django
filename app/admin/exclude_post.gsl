@@ -17,12 +17,14 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-new c.stmt as s
-  define s. = 'exclude = ( '
-  for m.exclude as e
-    s. += "'$(e.name)', "
-  endfor
-  s. += ')'
-endnew
+if defined(m->exclude)
+  new c.stmt as s
+    define s. = 'exclude = ( '
+    for m.exclude as e
+      s. += "'$(e.name)', "
+    endfor
+    s. += ')'
+  endnew
+endif
 
 .endtemplate

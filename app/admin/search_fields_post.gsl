@@ -17,12 +17,14 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-new c.stmt as s
-  define s. = 'search_fields = ( '
-  for m.search_fields as sf
-    s. += "'$(sf.name)', "
-  endfor
-  s. += ')'
-endnew
+if defined(m->search_fields)
+  new c.stmt as s
+    define s. = 'search_fields = ( '
+    for m.search_fields as sf
+      s. += "'$(sf.name)', "
+    endfor
+    s. += ')'
+  endnew
+endif
 
 .endtemplate

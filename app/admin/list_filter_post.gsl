@@ -17,12 +17,14 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-new c.stmt as s
-  define s. = 'list_filter = ( '
-  for m.list_filter as lf
-    s. += "'$(lf.name)', "
-  endfor
-  s. += ')'
-endnew
+if defined(m->list_filter)
+  new c.stmt as s
+    define s. = 'list_filter = ( '
+    for m.list_filter as lf
+      s. += "'$(lf.name)', "
+    endfor
+    s. += ')'
+  endnew
+endif
 
 .endtemplate

@@ -17,12 +17,14 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-new c.stmt as s
-  define s. = 'filter_horizontal = ( '
-  for m.filter_horizontal as fh
-    s. += "'$(fh.name)', "
-  endfor
-  s. += ')'
-endnew
+if defined(m->filter_horizontal)
+  new c.stmt as s
+    define s. = 'filter_horizontal = ( '
+    for m.filter_horizontal as fh
+      s. += "'$(fh.name)', "
+    endfor
+    s. += ')'
+  endnew
+endif
 
 .endtemplate

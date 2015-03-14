@@ -17,12 +17,14 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-new c.stmt as s
-  define s. = 'ordering = ( '
-  for m.ordering as o
-    s. += "'$(o.name)', "
-  endfor
-  s. += ')'
-endnew
+if defined(m->ordering)
+  new c.stmt as s
+    define s. = 'ordering = ( '
+    for m.ordering as o
+      s. += "'$(o.name)', "
+    endfor
+    s. += ')'
+  endnew
+endif
 
 .endtemplate
