@@ -33,7 +33,6 @@
       <attribute name="code" required="True"/>
       <attribute name="name" required="True"/>
     </node> <!-- !language -->
-  <!-- <node name="dir" virtual="True" pre="maindir_pre.gsl"/> -->
     <node name="app" number="*" pre_combine="app_pre_combine.gsl">
       <attribute name="name" required="True"/>
       <attribute name="description"/>
