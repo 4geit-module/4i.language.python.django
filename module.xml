@@ -3,6 +3,7 @@
   <module name="4i.language.python" required_branch="master"/>
 
   <require name="docutils" version="0.12"/>
+  <require name="django" version="#(django_version)"/>
   <require name="django-select-multiple-field" version="0.3.1"/>
 
   <resource url="https://github.com/kelvinwong-ca/django-select-multiple-field"/>

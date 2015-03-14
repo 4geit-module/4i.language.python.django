@@ -25,9 +25,4 @@ if !defined(projectnode.language)
   define projectnode.language = 'en'
 endif
 
-new projectnode.require as r
-  define r.name = 'django'
-  define r.version = '$(project.django_version)'
-endnew
-
 .endtemplate
