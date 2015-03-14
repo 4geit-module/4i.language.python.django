@@ -3,11 +3,21 @@
   <module name="4i.language.python" required_branch="master"/>
 
   <require name="docutils" version="0.12"/>
-  <!-- https://github.com/kelvinwong-ca/django-select-multiple-field -->
   <require name="django-select-multiple-field" version="0.3.1"/>
 
-  <todo>integrate with swagger http://django-rest-swagger.readthedocs.org/en/latest/ (almost done)</todo>
+  <resource url="https://github.com/kelvinwong-ca/django-select-multiple-field"/>
+  
+  <todo>integrate with django-rest-swagger</todo>
 
+  <!-- <gsl from="build__sh.gsl" output="build.sh" binary="True"/> -->
+  <gsl from="manage__py.gsl" output="manage.py" binary="True"/>
+  <dir name="#(name)">
+    <output name="__init__"/>
+    <gsl source_path="mainapp/" from="urls__py.gsl" output="urls.py"/>
+    <gsl source_path="mainapp/" from="wsgi__py.gsl" output="wsgi.py"/>
+    <gsl source_path="mainapp/" from="settings__py.gsl" output="settings.py"/>
+  </dir>
+  
   <node name="project" pre_combine="project_pre_combine.gsl">
     <attribute name="language" required="True"/>
     <attribute name="python_version" required="True"/>
@@ -22,17 +32,6 @@
       <attribute name="code" required="True"/>
       <attribute name="name" required="True"/>
     </node> <!-- !language -->
-    <!-- <node name="output" number="*" virtual="True" debug="True"> -->
-    <!--   <output name="manage" post="manage__py.gsl"/> -->
-    <!-- </node> -->
-    <!-- <node name="dir" number="*" virtual="True" pre_check="mainapp_dir_pre_check.gsl" debug="True"> -->
-    <!--   <node name="output" number="*" virtual="True" debug="True" pre="mainapp_output_pre.gsl"> -->
-    <!-- 	<output name="__init__"/> -->
-    <!-- 	<output name="urls" post="mainapp/urls__py.gsl"/> -->
-    <!-- 	<output name="wsgi" post="mainapp/wsgi__py.gsl"/> -->
-    <!-- 	<output name="settings" post="mainapp/settings__py.gsl"/> -->
-    <!--   </node> -->
-    <!-- </node> -->
   <!-- <node name="dir" virtual="True" pre="maindir_pre.gsl"/> -->
     <node name="app" number="*" pre_combine="app_pre_combine.gsl">
       <attribute name="name" required="True"/>

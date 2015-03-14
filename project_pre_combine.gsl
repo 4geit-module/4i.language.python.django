@@ -30,25 +30,4 @@ new projectnode.require as r
   define r.version = '$(project.django_version)'
 endnew
 
-new projectnode.output as o
-  define o.name = 'manage'
-  define o.binary = 'True'
-endnew
-
-new projectnode.dir as d
-  define d.name = project.name
-  
-  new d.output as o
-    define o.name = 'urls'
-  endnew
-  
-  new d.output as o
-    define o.name = 'wsgi'
-  endnew
-  
-  new d.output as o
-    define o.name = 'settings'
-  endnew
-endnew
-
 .endtemplate
