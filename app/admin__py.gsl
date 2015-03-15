@@ -17,7 +17,7 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-for projectnode.model as m
+function pre_create_model_properties
   gsl from "app/admin/exclude_pre.gsl"
   gsl from "app/admin/list_display_pre.gsl"
   gsl from "app/admin/list_filter_pre.gsl"
@@ -27,32 +27,73 @@ for projectnode.model as m
   gsl from "app/admin/ordering_pre.gsl"
   gsl from "app/admin/inlines_pre.gsl"
   gsl from "app/admin/class_pre.gsl"
-endfor
+endfunction
+
+function post_create_model_properties
+  gsl from "app/admin/exclude_post.gsl"
+  gsl from "app/admin/list_display_post.gsl"
+  gsl from "app/admin/list_filter_post.gsl"
+  gsl from "app/admin/filter_horizontal_post.gsl"
+  gsl from "app/admin/prepopulated_fields_post.gsl"
+  gsl from "app/admin/search_fields_post.gsl"
+  gsl from "app/admin/ordering_post.gsl"
+  gsl from "app/admin/inlines_post.gsl"
+  gsl from "app/admin/class_post.gsl"
+  gsl from "app/admin/truncate_post.gsl"
+  gsl from "app/admin/column_post.gsl"
+  gsl from "app/admin/progressbar_post.gsl"
+  gsl from "app/admin/get_queryset_post.gsl"
+  gsl from "app/admin/save_related_post.gsl"
+endfunction
 
 for projectnode.model as m
+  pre_create_model_properties()
+endfor m
+
+for projectnode.model as m
+  for m.inline as i
+    new o.class as c
+      define c.name = '$(m.name:)$(i.name:)Inline'
+      if defined(i.inline) & i.inline = "stacked"
+        define c.inherits = 'admin.StackedInline'
+      else
+        define c.inherits = 'admin.TabularInline'
+      endif
+      new c.stmt as s
+        define s. = 'model = models.$(m.name:)$(i.name:)'
+      endnew s
+      new c.stmt as s
+        define s. = 'extra = $(i.extra ? 1)'
+      endnew s
+    endnew c
+
+  endfor i
+
   new o.class as c
     define c.name = '$(m.name:)Admin'
     define c.inherits = 'admin.ModelAdmin'
-
-    gsl from "app/admin/exclude_post.gsl"
-    gsl from "app/admin/list_display_post.gsl"
-    gsl from "app/admin/list_filter_post.gsl"
-    gsl from "app/admin/filter_horizontal_post.gsl"
-    gsl from "app/admin/prepopulated_fields_post.gsl"
-    gsl from "app/admin/search_fields_post.gsl"
-    gsl from "app/admin/ordering_post.gsl"
-    gsl from "app/admin/inlines_post.gsl"
-    gsl from "app/admin/class_post.gsl"
-    gsl from "app/admin/truncate_post.gsl"
-    gsl from "app/admin/column_post.gsl"
-    gsl from "app/admin/progressbar_post.gsl"
-    gsl from "app/admin/get_queryset_post.gsl"
-    gsl from "app/admin/save_related_post.gsl"
-  endnew
+    post_create_model_properties()
+  endnew c
 
   new o.stmt as s
     define s. = "admin.site.register(models.$(m.name:), $(m.name:)Admin)"
-  endnew
-endfor
+  endnew s
+endfor m
+
+for projectnode.model as m
+  pre_create_model_properties()
+endfor m
+
+for projectnode.view as m
+  new o.class as c
+    define c.name = 'View$(m.name:)Admin'
+    define c.inherits = 'admin.ModelAdmin'
+    post_create_model_properties()
+  endnew c
+
+  new o.stmt as s
+    define s. = "admin.site.register(models.View$(m.name:), View$(m.name:)Admin)"
+  endnew s
+endfor m
 
 .endtemplate
