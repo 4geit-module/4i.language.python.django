@@ -17,7 +17,25 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-function pre_create_model_properties
+new o.stmt as s
+  define s. = "from django.contrib.contenttypes import generic"
+endnew s
+new o.stmt as s
+  define s. = "from django.contrib import admin"
+endnew s
+new o.stmt as s
+  define s. = "from django.utils.translation import ugettext_lazy as _"
+endnew s
+new o.stmt as s
+  define s. = "from django.db.models import Count"
+endnew s
+new o.stmt as s
+  define s. = "from . import models, forms"
+endnew s
+new o.newline as nl
+endnew nl
+
+function pre_create_modeladmin
   gsl from "app/admin/exclude_pre.gsl"
   gsl from "app/admin/list_display_pre.gsl"
   gsl from "app/admin/list_filter_pre.gsl"
@@ -27,9 +45,9 @@ function pre_create_model_properties
   gsl from "app/admin/ordering_pre.gsl"
   gsl from "app/admin/inlines_pre.gsl"
   gsl from "app/admin/class_pre.gsl"
-endfunction
+endfunction pre_create_modeladmin
 
-function post_create_model_properties
+function post_create_modeladmin
   gsl from "app/admin/exclude_post.gsl"
   gsl from "app/admin/list_display_post.gsl"
   gsl from "app/admin/list_filter_post.gsl"
@@ -44,10 +62,10 @@ function post_create_model_properties
   gsl from "app/admin/progressbar_post.gsl"
   gsl from "app/admin/get_queryset_post.gsl"
   gsl from "app/admin/save_related_post.gsl"
-endfunction
+endfunction post_create_modeladmin
 
 for projectnode.model as m
-  pre_create_model_properties()
+  pre_create_modeladmin()
 endfor m
 
 for projectnode.model as m
@@ -66,13 +84,12 @@ for projectnode.model as m
         define s. = 'extra = $(i.extra ? 1)'
       endnew s
     endnew c
-
   endfor i
 
   new o.class as c
     define c.name = '$(m.name:)Admin'
     define c.inherits = 'admin.ModelAdmin'
-    post_create_model_properties()
+    post_create_modeladmin()
   endnew c
 
   new o.stmt as s
@@ -81,14 +98,14 @@ for projectnode.model as m
 endfor m
 
 for projectnode.model as m
-  pre_create_model_properties()
+  pre_create_modeladmin()
 endfor m
 
 for projectnode.view as m
   new o.class as c
     define c.name = 'View$(m.name:)Admin'
     define c.inherits = 'admin.ModelAdmin'
-    post_create_model_properties()
+    post_create_modeladmin()
   endnew c
 
   new o.stmt as s
