@@ -68,4 +68,6 @@
       </node> <!-- !model -->
     </node> <!-- !app -->
   </node> <!-- !project -->
+
+  <test name="add_app" description="add a new app"/>
 </module>
