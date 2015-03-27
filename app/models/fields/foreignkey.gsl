@@ -1,0 +1,19 @@
+.template 0
+
+my.modelname = f.model
+
+if defined(f.app)
+  my.modelname = "$(f.app).$(f.model:)"
+endif
+
+if !defined(f.abstract) | f.abstract <> "False"
+  my.modelname = "'$(my.modelname:)'"
+endif
+
+my.fname = '$(f.name ? f.model:lower)'
+
+new c.stmt as s
+  define s. = "$(my.fname:) = models.ForeignKey($(my.modelname:), verbose_name=_('$(my.fname:)')$(my.options:))"
+endnew s
+
+.endtemplate

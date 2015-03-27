@@ -1,0 +1,7 @@
+.template 0
+
+new c.comment as cm
+  define cm. = "TODO: replace it by a many field"
+endnew cm
+
+.endtemplate

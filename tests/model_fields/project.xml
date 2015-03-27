@@ -1,0 +1,39 @@
+<project name="xyz" branch="master" admin_username="admin" admin_password="admin" admin_email="admin@localhost.lh" secret_key="jwMD5TMr3VDg2JcvCfk2Ttc85q/4d591V4ILjC/L89WMoFWUv9Sxwg==">
+  <module name="4i.language.python.django" required_branch="master"/>
+  <app name="myapp">
+    <model name="Category" display="name" plurial="categories">
+      <field type="char" name="name" unique="True" searchable="True" ordering="asc"/>
+    </model>
+
+    <model name="Tag" display="name">
+      <field type="char" name="name" unique="True" searchable="True" ordering="asc"/>
+    </model>
+
+    <model name="Author" display="name">
+      <field type="char" name="name" unique="True" searchable="True" ordering="asc"/>
+      <field type="email" name="email" nodata="True"/>
+    </model>
+    
+    <model name="Product" display="name">
+      <field type="char" name="name" searchable="True" ordering="asc"/>
+      <field type="slug" name="slug" uses="name" searchable="True" ordering="asc" nodata="True" list_display="True"/>
+      <field type="bool" name="enabled" default="True"/>
+      <field type="foreignkey" model="Category" nodata="True" searchable="name"/>
+      <field type="foreignkey" model="Author" nodata="True" searchable="name"/>
+      <field type="manytomany" model="Tag" name="tags" searchable="name" nodata="True"/>
+      <field type="int" name="quantity" default="0"/>
+      <field type="float" name="price" default="0.0"/>
+      <field type="choice" name="status">
+	<choice key="not_available" value="Not Available"/>
+	<choice key="available" value="Available"/>
+	<choice key="draft" value="Draft"/>
+	<choice key="withdrawn" value="Withdrawn"/>
+      </field>
+      <field type="text" name="description" nodata="True"/>
+      <field type="image" name="picture" nodata="True"/>
+      <field type="date" name="date_created" autonowadd="True" list_display="False"/>
+      <field type="datetime" name="date_last_modified" autonow="True" list_display="False"/>
+      <field type="ip" name="ip" nodata="True" list_display="False"/>
+    </model>
+  </app>
+</project>

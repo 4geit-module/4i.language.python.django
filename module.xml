@@ -72,4 +72,5 @@
   <test name="empty" description="empty django project"/>
   <test name="add_app" description="add a new app"/>
   <test name="single_model" description="add a new app with a single model"/>
+  <test name="model_fields" description="add a new app with a single model with fields"/>
 </module>

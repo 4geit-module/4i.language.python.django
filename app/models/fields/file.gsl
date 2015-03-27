@@ -1,0 +1,7 @@
+.template 0
+
+new c.stmt as s
+  define s. = "$(f.name) = models.FileField(_('$(f.name)')$(my.options:))"
+endnew s
+
+.endtemplate

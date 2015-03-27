@@ -1,0 +1,21 @@
+.template 0
+
+new c.stmt as s
+  define s. = "$(f.NAME)_MULTICHOICES = ("
+endnew s
+
+for f.choice as ch
+  new c.stmt as s
+    define s. = "    ('$(ch.key:)', _('$(ch.value:)')),"
+  endnew s
+endfor
+
+new c.stmt as s
+  define s. = ")"
+endnew s
+
+new c.stmt as s
+  define s. = "$(f.name) = SelectMultipleField(_('$(f.name)'), choices=$(f.NAME)_MULTICHOICES, max_length=200$(my.options:))"
+endnew s
+
+.endtemplate
