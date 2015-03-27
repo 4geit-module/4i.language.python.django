@@ -32,8 +32,6 @@ endnew s
 new o.stmt as s
   define s. = "from . import models, forms"
 endnew s
-new o.newline as nl
-endnew nl
 
 function pre_create_modeladmin
   gsl from "app/admin/exclude_pre.gsl"
@@ -70,6 +68,9 @@ endfor m
 
 for projectnode.model as m
   for m.inline as i
+    new o.newline as nl
+    endnew nl
+
     new o.class as c
       define c.name = '$(m.name:)$(i.name:)Inline'
       if defined(i.inline) & i.inline = "stacked"
@@ -85,6 +86,9 @@ for projectnode.model as m
       endnew s
     endnew c
   endfor i
+
+  new o.newline as nl
+  endnew nl
 
   new o.class as c
     define c.name = '$(m.name:)Admin'

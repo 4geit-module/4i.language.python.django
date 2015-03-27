@@ -24,6 +24,7 @@ class CategoryAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(models.Category, CategoryAdmin)
+
 class TagAdmin(admin.ModelAdmin):
     list_display = ( 'id', 'name', )
     search_fields = ( 'name', )
@@ -39,6 +40,7 @@ class TagAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(models.Tag, TagAdmin)
+
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ( 'id', 'name', 'email', )
     search_fields = ( 'name', )
@@ -54,6 +56,7 @@ class AuthorAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(models.Author, AuthorAdmin)
+
 class ProductAdmin(admin.ModelAdmin):
     list_display = ( 'id', 'name', 'slug', 'enabled', 'category', 'author', 'quantity', 'price', 'status', 'description', 'picture', )
     list_filter = ( 'category', 'author', 'tags', 'status', )

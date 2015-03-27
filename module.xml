@@ -9,6 +9,11 @@
   <resource url="https://github.com/kelvinwong-ca/django-select-multiple-field"/>
   
   <todo>integrate with django-rest-swagger</todo>
+  <todo>add inline test</todo>
+  <todo>add progressbar test</todo>
+  <todo>add annotate test</todo>
+  <todo>add host test</todo>
+  <todo>add truncate test</todo>
 
   <!-- <gsl from="build__sh.gsl" output="build.sh" binary="True"/> -->
   <gsl from="manage__py.gsl" output="manage.py" binary="True"/>
