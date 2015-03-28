@@ -21,7 +21,7 @@ if defined(m->inlines)
   new c.stmt as s
     define s. = 'inlines = [ '
     for m.inlines as is
-      s. += "'$(is.name)', "
+      s. += "$(is.name:), "
     endfor
     s. += ']'
   endnew
