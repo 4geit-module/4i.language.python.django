@@ -1,0 +1,68 @@
+.template 0
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 3
+# as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+# Authors:
+# Caner Candan <caner@candan.fr>, http://caner.candan.fr
+#
+
+for projectnode.$(my.ctx) as m
+  for m.field as f where f.type = "manytomany"
+    new m.column as cl
+      define cl.field_name = f.name
+      define cl.name = "number_of_$(f.name)"
+      define cl.description = "# $(f.name)"
+      if defined(m.annotate) & m.annotate = f.name
+        define cl.annotate = "True"
+        define cl.ref = "$(f.name)_count"
+      else
+        define cl.ref = "$(f.name)_count()"
+      endif
+    endnew cl
+
+    for projectnode.model as m2 where f.model = m2.name
+      new m2.column as cl
+        define cl.field_name = "$(m.name)"
+        define cl.name = "number_of_$(m.name)"
+        define cl.description = "# $(m.name)"
+        if defined(m2.annotate) & m2.annotate = "$(m.name)"
+          define cl.annotate = "True"
+          define cl.ref = "$(m.name)_count"
+        else
+          define cl.ref = "$(m.name)_set.count()"
+        endif
+      endnew cl
+    endfor m2
+  endfor f
+endfor m
+
+for projectnode.$(my.ctx) as m
+  for m.field as f where f.type = "foreignkey"
+    for projectnode.model as m2 where f.model = m2.name
+      new m2.column as cl
+        define cl.field_name = "$(m.name)"
+        define cl.name = "number_of_$(m.name)"
+        define cl.description = "# $(m.name)"
+        if defined(m2.annotate) & m2.annotate = "$(m.name)"
+          define cl.annotate = "True"
+          define cl.ref = "$(m.name)_count"
+        else
+          define cl.ref = "$(m.name)_set.count()"
+        endif
+      endnew cl
+    endfor m2
+  endfor f
+endfor m
+
+.endtemplate

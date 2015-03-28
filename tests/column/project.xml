@@ -1,0 +1,23 @@
+<project name="xyz" branch="master" admin_username="admin" admin_password="admin" admin_email="admin@localhost.lh" secret_key="jwMD5TMr3VDg2JcvCfk2Ttc85q/4d591V4ILjC/L89WMoFWUv9Sxwg==">
+  <module name="4i.language.python.django" required_branch="master"/>
+  <app name="myapp">
+    <model name="Category" display="name" annotate="product">
+      <field type="char" name="name"/>
+    </model>
+    
+    <model name="Product" display="name" annotate="categories">
+      <field type="char" name="name"/>
+      <field type="int" name="quantity"/>
+      <field type="choice" name="status" default="'preparation'" searchable="True">
+	<choice key="preparation" value="Preparation"/>
+	<choice key="validated" value="Validated"/>
+	<choice key="pending" value="Pending"/>
+	<choice key="applied" value="Applied"/>
+	<choice key="failed" value="Failed"/>
+      </field>
+      <field type="manytomany" model="Category" name="categories" searchable="name" nodata="True"/>
+      <field type="datetime" name="date_created" autonowadd="True" list_display="False"/>
+      <field type="datetime" name="date_last_modified" autonow="True" list_display="False"/>
+    </model>
+  </app>
+</project>

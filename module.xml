@@ -9,7 +9,6 @@
   <resource url="https://github.com/kelvinwong-ca/django-select-multiple-field"/>
   
   <todo>integrate with django-rest-swagger</todo>
-  <todo>add annotate test</todo>
   <todo>add host test</todo>
   <todo>add truncate test</todo>
 
@@ -78,5 +77,5 @@
   <test name="model_fields" description="add a new app with a single model with fields"/>
   <test name="inline" description="add a new app with a single model and inline models"/>
   <test name="progressbar" description="add a new app with a single model and progressbar feature"/>
-  <test name="annotate" description="add a new app with models using annotate feature"/>
+  <test name="column" description="add a new app with models using column feature"/>
 </module>

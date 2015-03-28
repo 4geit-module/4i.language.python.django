@@ -28,19 +28,19 @@ for m.field as f where (!defined(f.list_display) | (defined(f.list_display) & f.
     else
       define ld.name = f.name
     endif
-  endnew
-endfor
+  endnew ld
+endfor f
 
 for m.column as c
   new m.list_display as ld
     define ld.name = c.name
-  endnew
-endfor
+  endnew ld
+endfor c
 
 if defined(m.progressbar) & m.progressbar = "True"
   new m.list_display as ld
     define ld.name = 'progressbar'
-  endnew
+  endnew ld
 endif
 
 .endtemplate

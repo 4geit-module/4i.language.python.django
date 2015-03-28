@@ -35,6 +35,11 @@ endnew s
 new o.newline as nl
 endnew nl
 
+function init_create_modeladmin(ctx)
+  my.ctx ?= 'model'
+  gsl from "app/admin/column_init.gsl"
+endfunction init_create_modeladmin
+
 function pre_create_modeladmin
   gsl from "app/admin/exclude_pre.gsl"
   gsl from "app/admin/list_display_pre.gsl"
@@ -64,6 +69,7 @@ function post_create_modeladmin
   gsl from "app/admin/save_related_post.gsl"
 endfunction post_create_modeladmin
 
+init_create_modeladmin()
 for projectnode.model as m
   pre_create_modeladmin()
 endfor m
@@ -99,7 +105,8 @@ for projectnode.model as m
   endnew nl
 endfor m
 
-for projectnode.model as m
+init_create_modeladmin('view')
+for projectnode.view as m
   pre_create_modeladmin()
 endfor m
 
