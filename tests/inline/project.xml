@@ -1,0 +1,15 @@
+<project name="xyz" branch="master" admin_username="admin" admin_password="admin" admin_email="admin@localhost.lh" secret_key="jwMD5TMr3VDg2JcvCfk2Ttc85q/4d591V4ILjC/L89WMoFWUv9Sxwg==">
+  <module name="4i.language.python.django" required_branch="master"/>
+  <app name="myapp">
+    <model name="Product" display="name">
+      <field type="char" name="name"/>
+      <inline name="Tag">
+	<field type="slug" name="tag"/>
+      </inline>
+      <inline name="Keyword" inline="stacked">
+	<field type="slug" name="keyword"/>
+	<field type="int" name="quantity" default="0"/>
+      </inline>
+    </model>
+  </app>
+</project>
