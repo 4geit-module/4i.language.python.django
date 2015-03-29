@@ -55,18 +55,23 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+.
+. for project.installed_app as ia
+    '$(ia.name:)',
+. endfor ia
+.
     'django.contrib.admin',
     'django.contrib.admindocs',
-    # 'rest_framework_swagger',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 .
-. for project.app
-    '$(app.name)',
-. endfor
+. for project.app as a
+    '$(a.name)',
+. endfor a
+.
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,7 +109,7 @@ gettext = lambda s: s
 LANGUAGES = (
 .for project.language as l
     ('$(l.code)', gettext('$(l.Name)')),
-.endfor
+.endfor l
 )
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = '$(project.language)'

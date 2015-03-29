@@ -71,6 +71,11 @@
 	</node> <!-- !field -->
       </node> <!-- !model -->
     </node> <!-- !app -->
+    <node name="module" number="*">
+      <node name="installed_app" number="*" pre_combine="module_installed_app_pre_combine.gsl" debug="True">
+	<attribute name="name" required="True"/>
+      </node> <!-- !installed_app -->
+    </node> <!-- !module -->
   </node> <!-- !project -->
 
   <test name="empty" description="empty django project"/>
