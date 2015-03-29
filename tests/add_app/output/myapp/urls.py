@@ -3,3 +3,7 @@
 #
 # All rights reserved.
 
+from django.conf.urls import patterns, include, url
+from django.views.generic import TemplateView, DetailView, ListView
+from . import models, views
+

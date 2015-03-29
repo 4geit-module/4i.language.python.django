@@ -17,4 +17,19 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
+new o.stmt as s
+  define s. = "from django.conf import settings"
+endnew s
+new o.stmt as s
+  define s. = "from django import forms"
+endnew s
+new o.stmt as s
+  define s. = "from django.utils.translation import ugettext_lazy as _"
+endnew s
+new o.stmt as s
+  define s. = "from . import models"
+endnew s
+new o.newline as nl
+endnew nl
+
 .endtemplate

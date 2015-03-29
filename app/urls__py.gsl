@@ -17,4 +17,16 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
+new o.stmt as s
+  define s. = "from django.conf.urls import patterns, include, url"
+endnew s
+new o.stmt as s
+  define s. = "from django.views.generic import TemplateView, DetailView, ListView"
+endnew s
+new o.stmt as s
+  define s. = "from . import models, views"
+endnew s
+new o.newline as nl
+endnew nl
+
 .endtemplate

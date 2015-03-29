@@ -3,3 +3,5 @@
 #
 # All rights reserved.
 
+from django.test import TestCase
+

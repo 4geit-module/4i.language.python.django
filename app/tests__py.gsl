@@ -17,4 +17,10 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
+new o.stmt as s
+  define s. = "from django.test import TestCase"
+endnew s
+new o.newline as nl
+endnew nl
+
 .endtemplate

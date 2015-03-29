@@ -17,4 +17,28 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
+new o.stmt as s
+  define s. = "from django.shortcuts import render"
+endnew s
+new o.stmt as s
+  define s. = "from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger"
+endnew s
+new o.stmt as s
+  define s. = "from django.contrib import messages"
+endnew s
+new o.stmt as s
+  define s. = "from django.core.urlresolvers import reverse, reverse_lazy"
+endnew s
+new o.stmt as s
+  define s. = "from django.utils.translation import ugettext_lazy as _"
+endnew s
+new o.stmt as s
+  define s. = "from django.views import generic"
+endnew s
+new o.stmt as s
+  define s. = "from . import models, forms"
+endnew s
+new o.newline as nl
+endnew nl
+
 .endtemplate
