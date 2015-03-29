@@ -31,3 +31,4 @@ class ProductAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(models.Product, ProductAdmin)
+

@@ -10,9 +10,13 @@ from django.db.models import Count
 from . import models, forms
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ( 'id', 'name', )
+    list_display = ( 'id', 'name', 'number_of_product', )
     search_fields = ( 'name', )
     ordering = ( 'name', )
+
+    def number_of_product(self, obj):
+        return obj.product_set.count()
+    number_of_product.short_description = "# product"
 
     def get_queryset(self, request):
         qs = super(CategoryAdmin, self).get_queryset(request)
@@ -26,9 +30,13 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(models.Category, CategoryAdmin)
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ( 'id', 'name', )
+    list_display = ( 'id', 'name', 'number_of_product', )
     search_fields = ( 'name', )
     ordering = ( 'name', )
+
+    def number_of_product(self, obj):
+        return obj.product_set.count()
+    number_of_product.short_description = "# product"
 
     def get_queryset(self, request):
         qs = super(TagAdmin, self).get_queryset(request)
@@ -42,9 +50,13 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(models.Tag, TagAdmin)
 
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ( 'id', 'name', 'email', )
+    list_display = ( 'id', 'name', 'email', 'number_of_product', )
     search_fields = ( 'name', )
     ordering = ( 'name', )
+
+    def number_of_product(self, obj):
+        return obj.product_set.count()
+    number_of_product.short_description = "# product"
 
     def get_queryset(self, request):
         qs = super(AuthorAdmin, self).get_queryset(request)
@@ -58,12 +70,16 @@ class AuthorAdmin(admin.ModelAdmin):
 admin.site.register(models.Author, AuthorAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ( 'id', 'name', 'slug', 'enabled', 'category', 'author', 'quantity', 'price', 'status', 'description', 'picture', )
+    list_display = ( 'id', 'name', 'slug', 'enabled', 'category', 'author', 'quantity', 'price', 'status', 'description', 'picture', 'number_of_tags', )
     list_filter = ( 'category', 'author', 'tags', 'status', )
     filter_horizontal = ( 'tags', )
     prepopulated_fields = { 'slug': ('name',), }
     search_fields = ( 'name', 'slug', 'category__name', 'author__name', 'tags__name', )
     ordering = ( 'name', 'slug', )
+
+    def number_of_tags(self, obj):
+        return obj.tags_count()
+    number_of_tags.short_description = "# tags"
 
     def get_queryset(self, request):
         qs = super(ProductAdmin, self).get_queryset(request)
@@ -75,3 +91,4 @@ class ProductAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(models.Product, ProductAdmin)
+

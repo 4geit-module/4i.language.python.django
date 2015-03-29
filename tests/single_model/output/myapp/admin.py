@@ -22,3 +22,4 @@ class MyModelAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(models.MyModel, MyModelAdmin)
+

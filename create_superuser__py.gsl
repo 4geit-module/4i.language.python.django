@@ -25,13 +25,17 @@
 .copyleft()
 
 import os
-import sys
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "$(project.name).settings")
 
-    from django.core.management import execute_from_command_line
-
-    execute_from_command_line(sys.argv)
+    from django.contrib.auth.models import User
+    from django.db.utils import IntegrityError
+    try:
+        User.objects.create_superuser('$(project.admin_username:)', '$(project.admin_email:)', '$(project.admin_password:)')
+    except IntegrityError:
+        print('superuser "$(project.admin_username:)" already created')
+    else:
+        print('superuser "$(project.admin_username:)" created')
 .
 .endtemplate

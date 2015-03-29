@@ -13,6 +13,7 @@
 
   <!-- <gsl from="build__sh.gsl" output="build.sh" binary="True"/> -->
   <gsl from="manage__py.gsl" output="manage.py" binary="True"/>
+  <gsl from="create_superuser__py.gsl" output="create_superuser.py" binary="True"/>
   <dir name="#(name)">
     <output name="__init__"/>
     <gsl source_path="mainapp/" from="urls__py.gsl" output="urls.py"/>
