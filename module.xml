@@ -11,7 +11,8 @@
   <todo>integrate with django-rest-swagger</todo>
   <todo>add host test</todo>
 
-  <!-- <gsl from="build__sh.gsl" output="build.sh" binary="True"/> -->
+  <gsl from="build__sh.gsl" output="build.sh" binary="True"/>
+  <gsl from="run__sh.gsl" output="run.sh" binary="True"/>
   <gsl from="manage__py.gsl" output="manage.py" binary="True"/>
   <gsl from="create_superuser__py.gsl" output="create_superuser.py" binary="True"/>
   <dir name="#(name)">
