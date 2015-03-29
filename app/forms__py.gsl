@@ -17,6 +17,8 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
+app_context_import("forms")
+
 new o.stmt as s
   define s. = "from django.conf import settings"
 endnew s

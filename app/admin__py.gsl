@@ -17,6 +17,8 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
+app_context_import("admin")
+
 new o.stmt as s
   define s. = "from django.contrib.contenttypes import generic"
 endnew s

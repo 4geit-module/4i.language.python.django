@@ -75,6 +75,12 @@
       <node name="installed_app" number="*" pre_combine="module_installed_app_pre_combine.gsl" debug="True">
 	<attribute name="name" required="True"/>
       </node> <!-- !installed_app -->
+      <node name="import" number="*" pre_combine="module_import_pre_combine.gsl" debug="True">
+	<attribute name="context" required="True"/>
+	<attribute name="mainapp" type="boolean"/>
+	<attribute name="from"/>
+	<attribute name="import" required="True"/>
+      </node> <!-- !import -->
     </node> <!-- !module -->
   </node> <!-- !project -->
 

@@ -25,4 +25,28 @@ if !defined(projectnode.language)
   define projectnode.language = 'en'
 endif
 
+function app_context_import(ctx)
+  for project.import as i where i.context = my.ctx
+    new o.stmt as s
+      if defined(i.\from)
+        define s. = "from $(i.\from:) import $(i.import:)"
+      else
+        define s. = "import $(i.import:)"
+      endif
+    endnew s
+  endfor i
+endfunction app_context_import
+
+.template 1
+.macro mainapp_context_import(ctx)
+. for project.import as i where defined(i.mainapp) & i.mainapp = "True" & i.context = my.ctx
+.   if defined(i.\from)
+from $(i.\from:) import $(i.import:)
+.   else
+import $(i.import:)
+.   endif
+. endfor i
+.endmacro mainapp_context_import
+.endtemplate
+
 .endtemplate
