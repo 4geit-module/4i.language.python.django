@@ -20,7 +20,7 @@ class ProductAdmin(admin.ModelAdmin):
         qs = super(ProductAdmin, self).get_queryset(request)
         return qs
 
-    def save_related(self, request, form, formsets, chance):
+    def save_related(self, request, form, formsets, change):
         super(ProductAdmin, self).save_related(request, form, formsets, change)
         obj = form.instance
         obj.save()

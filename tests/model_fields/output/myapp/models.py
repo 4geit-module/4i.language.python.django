@@ -12,6 +12,9 @@ from django.contrib.contenttypes.models import ContentType
 from select_multiple_field.models import SelectMultipleField
 
 class Category(models.Model):
+    class Meta:
+        verbose_name_plural = _('categories')
+    
     name = models.CharField(_('name'), max_length=200, unique=True)
 
     def save(self, *args, **kwargs):

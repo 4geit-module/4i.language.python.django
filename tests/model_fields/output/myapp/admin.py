@@ -22,7 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
         qs = super(CategoryAdmin, self).get_queryset(request)
         return qs
 
-    def save_related(self, request, form, formsets, chance):
+    def save_related(self, request, form, formsets, change):
         super(CategoryAdmin, self).save_related(request, form, formsets, change)
         obj = form.instance
         obj.save()
@@ -42,7 +42,7 @@ class TagAdmin(admin.ModelAdmin):
         qs = super(TagAdmin, self).get_queryset(request)
         return qs
 
-    def save_related(self, request, form, formsets, chance):
+    def save_related(self, request, form, formsets, change):
         super(TagAdmin, self).save_related(request, form, formsets, change)
         obj = form.instance
         obj.save()
@@ -62,7 +62,7 @@ class AuthorAdmin(admin.ModelAdmin):
         qs = super(AuthorAdmin, self).get_queryset(request)
         return qs
 
-    def save_related(self, request, form, formsets, chance):
+    def save_related(self, request, form, formsets, change):
         super(AuthorAdmin, self).save_related(request, form, formsets, change)
         obj = form.instance
         obj.save()
@@ -78,14 +78,14 @@ class ProductAdmin(admin.ModelAdmin):
     ordering = ( 'name', 'slug', )
 
     def number_of_tags(self, obj):
-        return obj.tags_count()
+        return obj.tags.count()
     number_of_tags.short_description = "# tags"
 
     def get_queryset(self, request):
         qs = super(ProductAdmin, self).get_queryset(request)
         return qs
 
-    def save_related(self, request, form, formsets, chance):
+    def save_related(self, request, form, formsets, change):
         super(ProductAdmin, self).save_related(request, form, formsets, change)
         obj = form.instance
         obj.save()

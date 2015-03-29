@@ -16,7 +16,7 @@ class MyModelAdmin(admin.ModelAdmin):
         qs = super(MyModelAdmin, self).get_queryset(request)
         return qs
 
-    def save_related(self, request, form, formsets, chance):
+    def save_related(self, request, form, formsets, change):
         super(MyModelAdmin, self).save_related(request, form, formsets, change)
         obj = form.instance
         obj.save()

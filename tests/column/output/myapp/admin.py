@@ -22,7 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
         qs = qs.annotate(product_count=Count('product')).order_by('-product_count')
         return qs
 
-    def save_related(self, request, form, formsets, chance):
+    def save_related(self, request, form, formsets, change):
         super(CategoryAdmin, self).save_related(request, form, formsets, change)
         obj = form.instance
         obj.save()
@@ -45,7 +45,7 @@ class ProductAdmin(admin.ModelAdmin):
         qs = qs.annotate(categories_count=Count('categories')).order_by('-categories_count')
         return qs
 
-    def save_related(self, request, form, formsets, chance):
+    def save_related(self, request, form, formsets, change):
         super(ProductAdmin, self).save_related(request, form, formsets, change)
         obj = form.instance
         obj.save()

@@ -27,7 +27,7 @@ for projectnode.$(my.ctx) as m
         define cl.annotate = "True"
         define cl.ref = "$(f.name)_count"
       else
-        define cl.ref = "$(f.name)_count()"
+        define cl.ref = "$(f.name).count()"
       endif
     endnew cl
 
