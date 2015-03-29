@@ -33,6 +33,17 @@
     <attribute name="host"/>
     <attribute name="port"/>
     <attribute name="secret_key"/>
+    <node name="module" number="*">
+      <node name="installed_app" number="*" pre_combine="module_installed_app_pre_combine.gsl" debug="True">
+	<attribute name="name" required="True"/>
+      </node> <!-- !installed_app -->
+      <node name="import" number="*" pre_combine="module_import_pre_combine.gsl" debug="True">
+	<attribute name="context" required="True"/>
+	<attribute name="mainapp" type="boolean"/>
+	<attribute name="from"/>
+	<attribute name="import" required="True"/>
+      </node> <!-- !import -->
+    </node> <!-- !module -->
     <node name="language" number="*">
       <attribute name="code" required="True"/>
       <attribute name="name" required="True"/>
@@ -71,17 +82,6 @@
 	</node> <!-- !field -->
       </node> <!-- !model -->
     </node> <!-- !app -->
-    <node name="module" number="*">
-      <node name="installed_app" number="*" pre_combine="module_installed_app_pre_combine.gsl" debug="True">
-	<attribute name="name" required="True"/>
-      </node> <!-- !installed_app -->
-      <node name="import" number="*" pre_combine="module_import_pre_combine.gsl" debug="True">
-	<attribute name="context" required="True"/>
-	<attribute name="mainapp" type="boolean"/>
-	<attribute name="from"/>
-	<attribute name="import" required="True"/>
-      </node> <!-- !import -->
-    </node> <!-- !module -->
   </node> <!-- !project -->
 
   <test name="empty" description="empty django project"/>
