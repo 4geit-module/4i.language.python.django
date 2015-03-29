@@ -43,6 +43,10 @@
 	<attribute name="from"/>
 	<attribute name="import" required="True"/>
       </node> <!-- !import -->
+      <node name="variable" number="*" pre_combine="module_variable_pre_combine.gsl" debug="True">
+	<attribute name="key" required="True"/>
+	<attribute name="value"/>
+      </node> <!-- !variable -->
     </node> <!-- !module -->
     <node name="language" number="*">
       <attribute name="code" required="True"/>

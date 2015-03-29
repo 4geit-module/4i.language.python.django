@@ -128,4 +128,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 .
+.for project.variable as v
+
+. if defined(v.value)
+$(v.KEY) = $(v.value:)
+. else
+$(v.KEY) = $(v.:)
+. endif
+.endfor v
+.
 .endtemplate
