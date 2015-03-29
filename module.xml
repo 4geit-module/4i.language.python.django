@@ -5,6 +5,7 @@
   <require name="docutils" version="0.12"/>
   <require name="django" version="#(django_version)"/>
   <require name="django-select-multiple-field" version="0.3.1"/>
+  <require name="Pillow" version="2.7.0"/>
 
   <resource url="https://github.com/kelvinwong-ca/django-select-multiple-field"/>
   

@@ -32,7 +32,7 @@ new c.def as d
     define a.name = 'formsets'
   endnew
   new d.arg as a
-    define a.name = 'chance'
+    define a.name = 'change'
   endnew
   new d.stmt as s
     define s. = "super($(m.name:)Admin, self).save_related(request, form, formsets, change)"

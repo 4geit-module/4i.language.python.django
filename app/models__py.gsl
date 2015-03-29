@@ -208,6 +208,8 @@ for projectnode.model as m
       new c.stmt as s
         define s. = "    verbose_name_plural = _('$(m.plural)')"
       endnew
+      new c.newline as nl
+      endnew nl
     endif
     post_create_model(m)
   endnew c
