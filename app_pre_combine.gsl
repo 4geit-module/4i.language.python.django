@@ -20,61 +20,68 @@
 for projectnode.model as m
   for m.field as f where !defined(f.name) & defined(f.model)
     define f.name = f.model
-  endfor
-endfor
+  endfor f
+endfor m
 
 new project.dir as d
   define d.name = projectnode.name
 
   new d.output as o
     define o.name = '__init__'
-  endnew
+  endnew o
 
   new d.output as o
     define o.name = 'admin'
     gsl from 'app/admin__py.gsl'
-  endnew
+  endnew o
 
   new d.output as o
     define o.name = 'forms'
     gsl from 'app/forms__py.gsl'
-  endnew
+  endnew o
 
   new d.output as o
     define o.name = 'models'
     gsl from 'app/models__py.gsl'
-  endnew
+  endnew o
 
   new d.output as o
     define o.name = 'tests'
     gsl from 'app/tests__py.gsl'
-  endnew
+  endnew o
 
   new d.output as o
     define o.name = 'urls'
     gsl from 'app/urls__py.gsl'
-  endnew
+  endnew o
 
   new d.output as o
     define o.name = 'views'
     gsl from 'app/views__py.gsl'
-  endnew
+  endnew o
 
   new d.dir as d
     define d.name = 'management'
 
     new d.output as o
       define o.name = '__init__'
-    endnew
+    endnew o
 
     new d.dir as d
       define d.name = 'commands'
       
       new d.output as o
         define o.name = '__init__'
-      endnew
-    endnew
-  endnew
-endnew
+      endnew o
+
+      new d.gsl as g
+        define g.module_path = directory.resolve('.')
+        define g.source_path = 'app/management/commands/'
+        define g.\from = 'logging__conf.gsl'
+        define g.output = 'logging.conf'
+      endnew g
+    endnew d
+  endnew d
+endnew d
 
 .endtemplate
