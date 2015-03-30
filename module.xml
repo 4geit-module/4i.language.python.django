@@ -42,6 +42,7 @@
 	<attribute name="mainapp" type="boolean"/>
 	<attribute name="from"/>
 	<attribute name="import" required="True"/>
+	<attribute name="alias"/>
       </node> <!-- !import -->
       <node name="variable" number="*" pre_combine="module_variable_pre_combine.gsl" debug="True">
 	<attribute name="key" required="True"/>

@@ -33,6 +33,9 @@ function app_context_import(ctx)
       else
         define s. = "import $(i.import:)"
       endif
+      if defined(i.alias)
+        s. += " as $(i.alias:)"
+      endif
     endnew s
   endfor i
 endfunction app_context_import
@@ -41,10 +44,13 @@ endfunction app_context_import
 .macro mainapp_context_import(ctx)
 . for project.import as i where defined(i.mainapp) & i.mainapp = "True" & i.context = my.ctx
 .   if defined(i.\from)
-from $(i.\from:) import $(i.import:)
-.   else
-import $(i.import:)
+from $(i.\from:) \
 .   endif
+import $(i.import:)\
+.   if defined(i.alias)
+ as $(i.alias:)\
+.   endif
+
 . endfor i
 .endmacro mainapp_context_import
 .endtemplate
