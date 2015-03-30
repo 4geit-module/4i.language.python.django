@@ -25,4 +25,6 @@ endnew s
 new o.newline as nl
 endnew nl
 
+app_context_add_code("tests", "content")
+
 .endtemplate

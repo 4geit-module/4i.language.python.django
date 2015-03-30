@@ -43,4 +43,6 @@ endnew s
 new o.newline as nl
 endnew nl
 
+app_context_add_code("views", "content")
+
 .endtemplate

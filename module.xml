@@ -48,6 +48,12 @@
 	<attribute name="key" required="True"/>
 	<attribute name="value"/>
       </node> <!-- !variable -->
+      <node name="code" number="*" pre_combine="module_code_pre_combine.gsl" debug="True">
+	<attribute name="context" required="True"/>
+	<attribute name="mainapp" type="boolean"/>
+	<attribute name="hook" required="True"/>
+	<attribute name="app"/>
+      </node> <!-- !code -->
     </node> <!-- !module -->
     <node name="language" number="*">
       <attribute name="code" required="True"/>

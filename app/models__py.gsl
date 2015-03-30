@@ -210,4 +210,6 @@ for projectnode.model as m
   endnew c
 endfor m
 
+app_context_add_code("models", "content")
+
 .endtemplate

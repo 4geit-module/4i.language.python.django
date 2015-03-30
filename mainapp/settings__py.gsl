@@ -137,4 +137,6 @@ $(v.KEY) = $(v.:)
 . endif
 .endfor v
 .
+.mainapp_context_add_code("settings", "content")
+.
 .endtemplate

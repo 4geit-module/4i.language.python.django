@@ -126,4 +126,6 @@ for projectnode.view as m
   endnew nl
 endfor m
 
+app_context_add_code("admin", "content")
+
 .endtemplate

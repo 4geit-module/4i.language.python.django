@@ -26,7 +26,7 @@ if !defined(projectnode.language)
 endif
 
 function app_context_import(ctx)
-  for project.import as i where i.context = my.ctx
+  for project.import as i where i.context = my.ctx & !defined(i.mainapp)
     new o.stmt as s
       if defined(i.\from)
         define s. = "from $(i.\from:) import $(i.import:)"
@@ -39,6 +39,14 @@ function app_context_import(ctx)
     endnew s
   endfor i
 endfunction app_context_import
+
+function app_context_add_code(ctx, hook)
+  for project.code as c where c.context = my.ctx & c.hook = my.hook & !defined(i.mainapp)
+    new o.stmt as s
+      define s. = c.
+    endnew s
+  endfor c
+endfunction app_context_add_code
 
 .template 1
 .macro mainapp_context_import(ctx)
@@ -53,6 +61,12 @@ import $(i.import:)\
 
 . endfor i
 .endmacro mainapp_context_import
+.
+.macro mainapp_context_add_code(ctx, hook)
+. for project.code as c where defined(c.mainapp) & c.mainapp = "True" & c.context = my.ctx & c.hook = my.hook
+$(c.:)
+. endfor c
+.endmacro mainapp_context_add_code
 .endtemplate
 
 .endtemplate
