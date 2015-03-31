@@ -70,7 +70,7 @@
 	<attribute name="annotate"/>
 	<attribute name="plural"/>
 	<attribute name="progressbar" type="boolean"/>
-	<node name="field" number="*">
+	<node name="field" number="*" pre_combine="field_pre_combine.gsl" priority="very_strong">
 	  <attribute name="type" required="True"/>
 	  <attribute name="name"/>
 	  <attribute name="description"/>

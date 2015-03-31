@@ -17,12 +17,6 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-for projectnode.model as m
-  for m.field as f where !defined(f.name) & defined(f.model)
-    define f.name = f.model
-  endfor f
-endfor m
-
 new project.dir as d
   define d.name = projectnode.name
 
