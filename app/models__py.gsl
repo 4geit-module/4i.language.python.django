@@ -43,48 +43,6 @@ endnew s
 new o.newline as nl
 endnew nl
 
-function create_fields(model)
-  for my.model.field as f
-    my.options = ""
-
-    if defined(f.nodata) & f.nodata = "True"
-      my.options += ", blank=True, null=True"
-    endif
-
-    if defined(f.nodelete) & f.nodelete = "True"
-      my.options += ", on_delete=models.SET_NULL"
-    endif
-
-    if defined(f.unique) & f.unique = "True"
-      my.options += ", unique=True"
-    endif
-
-    if defined(f.index) & f.index = "True"
-      my.options += ", db_index=True"
-    endif
-
-    if defined(f.autonowadd) & f.autonowadd = "True"
-      my.options += ", auto_now_add=True"
-    endif
-
-    if defined(f.autonow) & f.autonow = "True"
-      my.options += ", auto_now=True"
-    endif
-
-    if defined(f.default)
-      my.options += ", default=$(f.default:)"
-    endif
-
-    gsl from "app/models/fields/$(f.type).gsl"
-  endfor f
-
-  if defined(my.model.progressbar) & my.model.progressbar = "True"
-    new c.stmt as s
-      define s. = "progress = models.IntegerField(_('progress'), blank=True, null=True)"
-    endnew s
-  endif
-endfunction create_fields
-
 function create_operations(model)
   for my.model.operation as op
     if op.type = "count"
@@ -95,97 +53,22 @@ function create_operations(model)
   endfor op
 endfunction create_operations
 
-function create_display(model)
-  new c.def as d
-    define d.name = "__unicode__"
-    new d.arg as a
-      define a.name = "self"
-    endnew
-    new d.stmt as s
-      if defined(my.model.display)
-        define s. = "return unicode(self.$(my.model.display))"
-      else
-        define s. = "return \"\"\"$(my.model.name:) (%d)\"\"\" % self.id"
-      endif
-    endnew s
-  endnew d
-endfunction create_display
-
-function create_save(model)
-  if defined(my.ctx.progressbar) & my.ctx.progressbar = "True"
-    new c.def as d
-      define d.name = "__progressbar"
-      new d.arg as a
-        define a.name = "self"
-      endnew
-      new d.stmt as s
-        define s. = "progress = 0."
-      endnew s
-      new d.stmt as s
-        define s. = "size = $(count(m.field))"
-      endnew s
-
-      for m.inline as i
-        new d.stmt as s
-          define s. = "size += self.$(m.name)$(i.name)_set.count() * $(count(i.field))"
-        endnew s
-        new d.stmt as s
-          define s. = "for item in self.$(m.name)$(i.name)_set.all():"
-        endnew s
-
-        for i.field as f
-          new d.stmt as s
-            define s. = "    if item.$(f.name?f.model:lower): progress += 100./size"
-          endnew
-        endfor f
-      endfor i
-
-      for m.field as f
-        new d.stmt as s
-          define s. = "if self.$(f.name): progress += 100./size"
-        endnew
-      endfor f
-
-      new d.stmt as s
-        define s. = "return int(round(progress))"
-      endnew
-    endnew d
-  endif
-
-  new c.def as d
-    define d.name = "save"
-    new d.arg as a
-      define a.name = "self"
-    endnew
-    new d.arg as a
-      define a.name = "*args"
-    endnew
-    new d.arg as a
-      define a.name = "**kwargs"
-    endnew
-    if defined(my.model.progressbar) & my.model.progressbar = "True"
-      new d.stmt as s
-        define s. = "self.progress = self.__progressbar()"
-      endnew s
-    endif
-    new d.stmt as s
-      define s. = "super($(my.model.name:), self).save(*args, **kwargs)"
-    endnew s
-  endnew d
-endfunction create_save
-
 function pre_create_model(model)
 
 endfunction pre_create_model
 
 function post_create_model(model)
-  create_fields(my.model)
-  create_save(my.model)
-  create_display(my.model)
+  gsl from "app/models/fields_post.gsl"
+  gsl from "app/models/save_post.gsl"
+  gsl from "app/models/display_post.gsl"
 endfunction post_create_model
 
 for projectnode.model as m
   for m.inline as i
+    new i.field as f
+      define f.type = "foreignkey"
+      define f.model = m.name
+    endnew
     new o.class as c
       define c.name = '$(m.name:)$(i.name:)'
       define c.inherits = 'models.Model'
@@ -197,15 +80,22 @@ for projectnode.model as m
     define c.name = '$(m.name:)'
     define c.inherits = 'models.Model'
     if defined(m.plural)
-      new c.stmt as s
-        define s. = "class Meta:"
-      endnew
-      new c.stmt as s
-        define s. = "    verbose_name_plural = _('$(m.plural)')"
-      endnew
-      new c.newline as nl
-      endnew nl
+      new c.subclass as meta
+        define meta.name = "Meta"
+        new meta.stmt as s
+          define s. = "verbose_name_plural = _('$(m.plural)')"
+        endnew s
+      endnew meta
     endif
+    post_create_model(m)
+  endnew c
+endfor m
+
+for projectnode.view as m
+  new o.class as c
+    define c.name = 'View$(m.name:)'
+    define c.inherits = 'admin.Model'
+    create_operations(m)
     post_create_model(m)
   endnew c
 endfor m

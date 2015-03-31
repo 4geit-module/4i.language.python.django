@@ -1,0 +1,81 @@
+.template 0
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 3
+# as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+# Authors:
+# Caner Candan <caner@candan.fr>, http://caner.candan.fr
+#
+
+if defined(my.ctx.progressbar) & my.ctx.progressbar = "True"
+  new c.def as d
+    define d.name = "__progressbar"
+    new d.arg as a
+      define a.name = "self"
+    endnew
+    new d.stmt as s
+      define s. = "progress = 0."
+    endnew s
+    new d.stmt as s
+      define s. = "size = $(count(m.field))"
+    endnew s
+
+    for m.inline as i
+      new d.stmt as s
+        define s. = "size += self.$(m.name)$(i.name)_set.count() * $(count(i.field))"
+      endnew s
+      new d.stmt as s
+        define s. = "for item in self.$(m.name)$(i.name)_set.all():"
+      endnew s
+
+      for i.field as f
+        new d.stmt as s
+          define s. = "    if item.$(f.name?f.model:lower): progress += 100./size"
+        endnew
+      endfor f
+    endfor i
+
+    for m.field as f
+      new d.stmt as s
+        define s. = "if self.$(f.name): progress += 100./size"
+      endnew
+    endfor f
+
+    new d.stmt as s
+      define s. = "return int(round(progress))"
+    endnew
+  endnew d
+endif
+
+new c.def as d
+  define d.name = "save"
+  new d.arg as a
+    define a.name = "self"
+  endnew
+  new d.arg as a
+    define a.name = "*args"
+  endnew
+  new d.arg as a
+    define a.name = "**kwargs"
+  endnew
+  if defined(my.model.progressbar) & my.model.progressbar = "True"
+    new d.stmt as s
+      define s. = "self.progress = self.__progressbar()"
+    endnew s
+  endif
+  new d.stmt as s
+    define s. = "super($(my.model.name:), self).save(*args, **kwargs)"
+  endnew s
+endnew d
+
+.endtemplate
