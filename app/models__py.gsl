@@ -54,7 +54,6 @@ function create_operations(model)
 endfunction create_operations
 
 function pre_create_model(model)
-
 endfunction pre_create_model
 
 function post_create_model(model)

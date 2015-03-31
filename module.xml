@@ -62,7 +62,7 @@
     <node name="app" number="*" pre_combine="app_pre_combine.gsl">
       <attribute name="name" required="True"/>
       <attribute name="description"/>
-      <node name="model" number="*" pre="model_pre.gsl">
+      <node name="model" number="*">
 	<attribute name="name" required="True"/>
 	<attribute name="description"/>
 	<attribute name="display"/>
