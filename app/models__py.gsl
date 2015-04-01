@@ -65,30 +65,24 @@ endfunction post_create_model
 
 function document_fields(model)
   for my.model.field as f
-    new c.newline as nl
-    endnew
-    new c.stmt as s
-      define s. =  ":param $(f.name): $(f.description?:)"
-    endnew s
-    new c.stmt as s
-      define s. =  ":type $(f.name): $(f.type)"
-    endnew s
-  endfor
+    new mc.newline as nl
+    endnew nl
+    new mc.line as l
+      define l. =  ":param $(f.name): $(f.description?:)"
+    endnew l
+    new mc.line as l
+      define l. =  ":type $(f.name): $(f.type)"
+    endnew l
+  endfor f
 endfunction
 
 function document_model(model)
-  new c.stmt as s
-    define s. = '"""'
-  endnew s
-  new c.stmt as s
-    define s. = my.model.description ? c.name
-  endnew s
-  document_fields(my.model)
-  new c.stmt as s
-    define s. = '"""'
-  endnew s
-  new c.newline as nl
-  endnew nl
+  new c.multicomment as mc
+    new mc.line as l
+      define l. = my.model.description ? c.name
+    endnew l
+    document_fields(my.model)
+  endnew mc
 endfunction document_model
 
 for projectnode.model as m
