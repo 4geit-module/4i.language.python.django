@@ -29,4 +29,6 @@
 \./manage.py migrate
 \./create_superuser.py
 .
+.context_add_static_code('build', 'content')
+.
 .endtemplate

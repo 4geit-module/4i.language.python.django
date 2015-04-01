@@ -48,7 +48,18 @@ function app_context_add_code(ctx, hook)
   endfor c
 endfunction app_context_add_code
 
+function context_add_dynamic_code(ctx, hook)
+  for project.code as c where c.context = my.ctx & c.hook = my.hook
+    new o.stmt as s
+      define s. = c.
+    endnew s
+  endfor c
+endfunction context_add_dynamic_code
+
+.endtemplate
+.
 .template 1
+.
 .macro mainapp_context_import(ctx)
 . for project.import as i where defined(i.mainapp) & i.mainapp = "True" & i.context = my.ctx
 .   if defined(i.\from)
@@ -67,6 +78,11 @@ import $(i.import:)\
 $(c.:)
 . endfor c
 .endmacro mainapp_context_add_code
-.endtemplate
-
+.
+.macro context_add_static_code(ctx, hook)
+. for project.code as c where c.context = my.ctx & c.hook = my.hook
+$(c.:)
+. endfor c
+.endmacro context_add_static_code
+.
 .endtemplate

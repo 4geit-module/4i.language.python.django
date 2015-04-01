@@ -26,4 +26,6 @@
 
 \./manage.py runserver $(project.host?"localhost"):$(project.port?"8000")
 .
+.context_add_static_code('run', 'content')
+.
 .endtemplate
