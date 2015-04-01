@@ -17,7 +17,7 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-if defined(my.ctx.progressbar) & my.ctx.progressbar = "True"
+if defined(my.model.progressbar) & my.model.progressbar = "True"
   new c.def as d
     define d.name = "__progressbar"
     new d.arg as a
@@ -27,7 +27,7 @@ if defined(my.ctx.progressbar) & my.ctx.progressbar = "True"
       define s. = "progress = 0."
     endnew s
     new d.stmt as s
-      define s. = "size = $(count(m.field))"
+      define s. = "size = $(count(m.field, name <> "progress"))"
     endnew s
 
     for m.inline as i
@@ -74,7 +74,7 @@ new c.def as d
     endnew s
   endif
   new d.stmt as s
-    define s. = "super($(my.model.name:), self).save(*args, **kwargs)"
+    define s. = "super($(c.name:), self).save(*args, **kwargs)"
   endnew s
 endnew d
 

@@ -54,6 +54,7 @@ function create_operations(model)
 endfunction create_operations
 
 function pre_create_model(model)
+  gsl from "app/models/fields_pre.gsl"
 endfunction pre_create_model
 
 function post_create_model(model)
@@ -62,15 +63,52 @@ function post_create_model(model)
   gsl from "app/models/display_post.gsl"
 endfunction post_create_model
 
+function document_fields(model)
+  for my.model.field as f
+    new c.newline as nl
+    endnew
+    new c.stmt as s
+      define s. =  ":param $(f.name): $(f.description?:)"
+    endnew s
+    new c.stmt as s
+      define s. =  ":type $(f.name): $(f.type)"
+    endnew s
+  endfor
+endfunction
+
+function document_model(model)
+  new c.stmt as s
+    define s. = '"""'
+  endnew s
+  new c.stmt as s
+    define s. = my.model.description ? c.name
+  endnew s
+  document_fields(my.model)
+  new c.stmt as s
+    define s. = '"""'
+  endnew s
+  new c.newline as nl
+  endnew nl
+endfunction document_model
+
+for projectnode.model as m
+  for m.inline as i
+    pre_create_model(i)
+  endfor i
+  pre_create_model(m)
+endfor m
+
 for projectnode.model as m
   for m.inline as i
     new i.field as f
       define f.type = "foreignkey"
+      define f.name = "$(m.name)"
       define f.model = m.name
-    endnew
+    endnew f
     new o.class as c
       define c.name = '$(m.name:)$(i.name:)'
       define c.inherits = 'models.Model'
+      document_model(i)
       post_create_model(i)
     endnew c
   endfor i
@@ -78,6 +116,7 @@ for projectnode.model as m
   new o.class as c
     define c.name = '$(m.name:)'
     define c.inherits = 'models.Model'
+    document_model(m)
     if defined(m.plural)
       new c.subclass as meta
         define meta.name = "Meta"
@@ -94,6 +133,7 @@ for projectnode.view as m
   new o.class as c
     define c.name = 'View$(m.name:)'
     define c.inherits = 'admin.Model'
+    document_model(m)
     create_operations(m)
     post_create_model(m)
   endnew c

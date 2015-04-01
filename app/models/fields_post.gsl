@@ -51,10 +51,4 @@ for my.model.field as f
   gsl from "app/models/fields/$(f.type).gsl"
 endfor f
 
-if defined(my.model.progressbar) & my.model.progressbar = "True"
-  new c.stmt as s
-    define s. = "progress = models.IntegerField(_('progress'), blank=True, null=True)"
-  endnew s
-endif
-
 .endtemplate

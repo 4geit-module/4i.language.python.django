@@ -17,8 +17,12 @@
 # Caner Candan <caner@candan.fr>, http://caner.candan.fr
 #
 
-if !defined(projectnode.name) & defined(projectnode.model)
-  define projectnode.name = "$(projectnode.model:lower)"
+if defined(my.model.progressbar) & my.model.progressbar = "True"
+  new my.model.field as f
+    define f.type = "int"
+    define f.name = "progress"
+    define f.nodata = "True"
+  endnew f
 endif
 
 .endtemplate
