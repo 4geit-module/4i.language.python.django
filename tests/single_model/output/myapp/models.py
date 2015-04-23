@@ -7,11 +7,13 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
-from select_multiple_field.models import SelectMultipleField
 
 class MyModel(models.Model):
+    """
+    MyModel
+    """
+
 
     def save(self, *args, **kwargs):
         super(MyModel, self).save(*args, **kwargs)

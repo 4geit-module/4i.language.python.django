@@ -7,11 +7,28 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
-from select_multiple_field.models import SelectMultipleField
 
 class Product(models.Model):
+    """
+    Product
+        
+    :param name: 
+    :type name: char
+        
+    :param quantity: 
+    :type quantity: int
+        
+    :param body: 
+    :type body: text
+        
+    :param date_created: 
+    :type date_created: datetime
+        
+    :param date_last_modified: 
+    :type date_last_modified: datetime
+    """
+
     name = models.CharField(_('name'), max_length=200)
     quantity = models.IntegerField(_('quantity'))
     body = models.TextField(_('body'))

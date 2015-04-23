@@ -112,6 +112,7 @@ for projectnode.model as m
     if defined(m.plural)
       new c.subclass as meta
         define meta.name = "Meta"
+        define meta.inherits = ""
         new meta.stmt as s
           define s. = "verbose_name_plural = _('$(m.plural)')"
         endnew s
