@@ -32,14 +32,12 @@ new o.stmt as s
   define s. = "from django.core.urlresolvers import reverse, reverse_lazy"
 endnew s
 new o.stmt as s
-  define s. = "from django.contrib.contenttypes import generic"
-endnew s
-new o.stmt as s
   define s. = "from django.contrib.contenttypes.models import ContentType"
 endnew s
-new o.stmt as s
-  define s. = "from select_multiple_field.models import SelectMultipleField"
-endnew s
+# Generate a warning message
+# new o.stmt as s
+#   define s. = "from select_multiple_field.models import SelectMultipleField"
+# endnew s
 new o.newline as nl
 endnew nl
 

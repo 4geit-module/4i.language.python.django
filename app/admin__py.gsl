@@ -20,9 +20,6 @@
 app_context_import("admin")
 
 new o.stmt as s
-  define s. = "from django.contrib.contenttypes import generic"
-endnew s
-new o.stmt as s
   define s. = "from django.contrib import admin"
 endnew s
 new o.stmt as s

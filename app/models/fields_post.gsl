@@ -21,7 +21,11 @@ for my.model.field as f
   my.options = ""
 
   if defined(f.nodata) & f.nodata = "True"
-    my.options += ", blank=True, null=True"
+    if f.type = "manytomany"
+      my.options += ", blank=True"
+    else
+      my.options += ", blank=True, null=True"
+    endif
   endif
 
   if defined(f.nodelete) & f.nodelete = "True"
